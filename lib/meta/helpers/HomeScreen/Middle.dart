@@ -2,7 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:pizzato_mvvm/app/routes.dart';
+import 'package:pizzato_mvvm/core/models/Food.dart';
 import 'package:pizzato_mvvm/core/viewmodels/HomeScreenViewModel.dart';
+import 'package:pizzato_mvvm/meta/screens/DetailScreen.dart';
 import 'package:provider/provider.dart';
 
 class Middle extends ChangeNotifier {
@@ -55,13 +59,15 @@ class Middle extends ChangeNotifier {
                           .map((DocumentSnapshot documentSnapshot) {
                     return GestureDetector(
                       onTap: () {
-                        // Navigator.push(
-                        //     context,
-                        //     PageTransition(
-                        //       child: DetailScreen(
-                        //           queryDocumentSnapshot: documentSnapshot),
-                        //       type: PageTransitionType.fade,
-                        //     ));
+                        Routes.sailor.navigate<Food>('/detail_screen', params: {
+                          'food': Food(
+                            name: documentSnapshot.get('name'),
+                            category: documentSnapshot.get('category'),
+                            image: documentSnapshot.get('image'),
+                            rating: documentSnapshot.get('rating').toString(),
+                            price: documentSnapshot.get('price').toString(),
+                          ),
+                        });
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),

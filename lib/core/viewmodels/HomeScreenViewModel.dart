@@ -2,13 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pizzato_mvvm/core/services/FirebaseOperations.dart';
 import 'package:pizzato_mvvm/core/services/Maps.dart';
+import 'package:pizzato_mvvm/core/viewmodels/GlobalViewModel.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreenViewModel extends ChangeNotifier {
   FirebaseOperations firebaseOperations = FirebaseOperations();
   Maps maps = Maps();
   List<QueryDocumentSnapshot<Object>> items;
   List<QueryDocumentSnapshot<Object>> businessItems;
-  String location;
+  //String location;
 
   Future<List<QueryDocumentSnapshot<Object>>> fetchData(
       BuildContext context, String collection,
@@ -33,8 +35,8 @@ class HomeScreenViewModel extends ChangeNotifier {
     }
   }
 
-  Future getCurrentLocation() async {
-    this.location = await maps.getCurrentLocation();
+  Future getCurrentLocation(BuildContext context) async {
+    await maps.getCurrentLocation(context);
     notifyListeners();
   }
 }

@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:pizzato_mvvm/app/routes.dart';
 import 'package:pizzato_mvvm/core/services/Authentication.dart';
+import 'package:pizzato_mvvm/core/viewmodels/DetailScreenViewModel.dart';
+import 'package:pizzato_mvvm/core/viewmodels/GlobalViewModel.dart';
 import 'package:pizzato_mvvm/core/viewmodels/HomeScreenViewModel.dart';
+import 'package:pizzato_mvvm/core/viewmodels/MapScreenViewModel.dart';
+import 'package:pizzato_mvvm/meta/helpers/DetailScreen/DetailScreenHelper.dart';
 import 'package:pizzato_mvvm/meta/helpers/HomeScreen/Footer.dart';
 import 'package:pizzato_mvvm/meta/helpers/HomeScreen/Header.dart';
 import 'package:pizzato_mvvm/meta/helpers/HomeScreen/Middle.dart';
+import 'package:pizzato_mvvm/meta/helpers/MapScreen/MapScreenHelper.dart';
 import 'package:pizzato_mvvm/meta/screens/SplashScreen.dart';
 import 'package:provider/provider.dart';
 
@@ -27,12 +32,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => MapScreenHelper()),
         ChangeNotifierProvider(create: (_) => LoginScreenViewModel()),
         ChangeNotifierProvider(create: (_) => Footer()),
         ChangeNotifierProvider(create: (_) => Header()),
         ChangeNotifierProvider(create: (_) => Middle()),
         ChangeNotifierProvider(create: (_) => HomeScreenViewModel()),
         ChangeNotifierProvider(create: (_) => SplashScreenViewModel()),
+        ChangeNotifierProvider(create: (_) => DetailScreenHelper()),
+        ChangeNotifierProvider(create: (_) => DetailScreenViewModel()),
+        ChangeNotifierProvider(create: (_) => GlobalViewModel()),
+        ChangeNotifierProvider(create: (_) => MapScreenViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

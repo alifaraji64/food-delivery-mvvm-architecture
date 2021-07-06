@@ -6,7 +6,7 @@ class Footer extends ChangeNotifier {
   Widget floatingActionButton(BuildContext context) {
     return FloatingActionButton(
       onPressed: () {
-        print(FlutterConfig.get('test'));
+        //print(FlutterConfig.get('test'));
         // Navigator.push(
         //     context,
         //     PageTransition(

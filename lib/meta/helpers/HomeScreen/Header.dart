@@ -2,6 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pizzato_mvvm/core/viewmodels/GlobalViewModel.dart';
 import 'package:pizzato_mvvm/core/viewmodels/HomeScreenViewModel.dart';
 import 'package:provider/provider.dart';
 
@@ -9,8 +10,10 @@ class Header extends ChangeNotifier {
   final storage = new FlutterSecureStorage();
 
   Widget appBar(BuildContext context) {
-    Provider.of<HomeScreenViewModel>(context, listen: false)
-        .getCurrentLocation();
+    if (Provider.of<GlobalViewModel>(context, listen: false).getLocation ==
+        null)
+      Provider.of<HomeScreenViewModel>(context, listen: false)
+          .getCurrentLocation(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -36,7 +39,7 @@ class Header extends ChangeNotifier {
             Container(
               constraints: BoxConstraints(maxWidth: 240),
               child: Text(
-                '${Provider.of<HomeScreenViewModel>(context, listen: true).location ?? "finding your location..."}',
+                '${Provider.of<GlobalViewModel>(context, listen: true).getLocation ?? "finding your location..."}',
                 style: TextStyle(color: Colors.grey.shade600),
               ),
             )

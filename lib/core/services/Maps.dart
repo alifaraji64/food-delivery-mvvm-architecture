@@ -1,21 +1,26 @@
+import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoder/geocoder.dart' as geoCo;
+import 'package:pizzato_mvvm/core/viewmodels/GlobalViewModel.dart';
+import 'package:provider/provider.dart';
 
 class Maps {
-  double latitude;
-  double longitude;
   String location;
 
-  Future getCurrentLocation() async {
+  Future getCurrentLocation(BuildContext context) async {
     var positionData = await GeolocatorPlatform.instance.getCurrentPosition();
     final cords =
         geoCo.Coordinates(positionData.latitude, positionData.longitude);
-    this.latitude = positionData.latitude;
-    this.longitude = positionData.longitude;
+    Provider.of<GlobalViewModel>(context, listen: false).latitude =
+        positionData.latitude;
+    Provider.of<GlobalViewModel>(context, listen: false).longitude =
+        positionData.longitude;
     var address =
         await geoCo.Geocoder.local.findAddressesFromCoordinates(cords);
 
     this.location = address.first.addressLine;
-    return this.location.toString();
+    Provider.of<GlobalViewModel>(context, listen: false).location =
+        this.location.toString();
+    //return this.location.toString();
   }
 }

@@ -58,4 +58,19 @@ class FirebaseOperations {
       return querySnapshot.docs;
     }
   }
+
+  Future submitOrder(dynamic data) async {
+    print(data);
+    String uid = await storage.read(key: 'uid');
+    try {
+      print(uid);
+      await instance
+          .collection('orders')
+          .doc(uid)
+          .collection('allOrdersForOneUser')
+          .add(data);
+    } catch (e) {
+      print('error occured while submiting order');
+    }
+  }
 }
