@@ -37,6 +37,8 @@ class HomeScreenViewModel extends ChangeNotifier {
 
   Future getCurrentLocation(BuildContext context) async {
     await maps.getCurrentLocation(context);
-    notifyListeners();
+
+    print(Provider.of<GlobalViewModel>(context, listen: false).getLocation);
+    //notifyListeners();
   }
 }

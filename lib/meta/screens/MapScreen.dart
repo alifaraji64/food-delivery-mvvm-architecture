@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pizzato_mvvm/app/routes.dart';
-import 'package:pizzato_mvvm/core/services/Maps.dart';
 import 'package:pizzato_mvvm/meta/helpers/MapScreen/MapScreenHelper.dart';
 import 'package:provider/provider.dart';
 

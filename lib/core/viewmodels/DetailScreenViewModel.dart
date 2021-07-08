@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pizzato_mvvm/app/routes.dart';
 import 'package:pizzato_mvvm/core/services/FirebaseOperations.dart';
-import 'package:pizzato_mvvm/core/services/Maps.dart';
 import 'package:pizzato_mvvm/core/viewmodels/GlobalViewModel.dart';
 import 'package:provider/provider.dart';
 
@@ -14,15 +13,10 @@ class DetailScreenViewModel extends ChangeNotifier {
   FirebaseOperations firebaseOperations = FirebaseOperations();
   int cheseValue = 0, beaconValue = 0, onionValue = 0;
   String size;
-  double totalPrice = 0;
-  List<double> orderPrices = [];
-  List<QueryDocumentSnapshot> orders = [];
   int get getCheeseValue => cheseValue;
   int get getBeaconValue => beaconValue;
   int get getOnionValue => onionValue;
-  double get getTotalPrice => totalPrice;
   String get getSize => size;
-  List<double> get getOrderPrices => orderPrices;
 
   void deleteCheese() {
     if (cheseValue > 0) {
@@ -183,48 +177,9 @@ class DetailScreenViewModel extends ChangeNotifier {
     }
   }
 
-  subtotalForEachOrder() {
-    print('puahaha');
-    this.orders.forEach((order) {
-      var data = order.data() as dynamic;
-      print(data['price']);
-      double price = double.parse(data['price']);
-      //apply size to the price
-      switch (data['size']) {
-        case 'S':
-          price++;
-          break;
-        case 'M':
-          price += 2;
-          break;
-        case 'L':
-          price += 3;
-          break;
-        default:
-      }
-      //apply gradients to the price
-      if (data['cheese'] != 0) {
-        price += data['cheese'];
-      }
-      if (data['beacon'] != 0) {
-        price += data['beacon'];
-      }
-      if (data['onion'] != 0) {
-        price += data['onion'];
-      }
-      orderPrices.add(price);
-      this.totalPrice += price;
-
-      //notifyListeners();
-    });
-    notifyListeners();
-    print(totalPrice.toString());
-    print(this.getOrderPrices);
-  }
-
   clear() {
-    this.orderPrices = [];
-    this.totalPrice = 0;
+    //this.orderPrices = [];
+    //this.totalPrice = 0;
     var _timer = new Timer(const Duration(milliseconds: 1), () {
       notifyListeners();
     });

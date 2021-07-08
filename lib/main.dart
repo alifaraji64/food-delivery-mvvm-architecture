@@ -2,11 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:pizzato_mvvm/app/routes.dart';
-import 'package:pizzato_mvvm/core/services/Authentication.dart';
+import 'package:pizzato_mvvm/core/viewmodels/CartScreenViewModel.dart';
 import 'package:pizzato_mvvm/core/viewmodels/DetailScreenViewModel.dart';
 import 'package:pizzato_mvvm/core/viewmodels/GlobalViewModel.dart';
 import 'package:pizzato_mvvm/core/viewmodels/HomeScreenViewModel.dart';
 import 'package:pizzato_mvvm/core/viewmodels/MapScreenViewModel.dart';
+import 'package:pizzato_mvvm/meta/helpers/CartScreen/CartScreenHelper.dart';
 import 'package:pizzato_mvvm/meta/helpers/DetailScreen/DetailScreenHelper.dart';
 import 'package:pizzato_mvvm/meta/helpers/HomeScreen/Footer.dart';
 import 'package:pizzato_mvvm/meta/helpers/HomeScreen/Header.dart';
@@ -43,6 +44,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DetailScreenViewModel()),
         ChangeNotifierProvider(create: (_) => GlobalViewModel()),
         ChangeNotifierProvider(create: (_) => MapScreenViewModel()),
+        ChangeNotifierProvider(create: (_) => CartScreenViewModel()),
+        ChangeNotifierProvider(create: (_) => CartScreenHelper()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

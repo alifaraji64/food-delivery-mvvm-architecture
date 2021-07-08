@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pizzato_mvvm/app/routes.dart';
+import 'package:pizzato_mvvm/core/viewmodels/CartScreenViewModel.dart';
+import 'package:pizzato_mvvm/core/viewmodels/DetailScreenViewModel.dart';
+import 'package:provider/provider.dart';
 
 class FirebaseOperations {
   FirebaseFirestore instance = FirebaseFirestore.instance;
@@ -57,6 +60,7 @@ class FirebaseOperations {
       QuerySnapshot querySnapshot = await instance.collection(collection).get();
       return querySnapshot.docs;
     }
+    return [];
   }
 
   Future submitOrder(dynamic data) async {
@@ -71,6 +75,27 @@ class FirebaseOperations {
           .add(data);
     } catch (e) {
       print('error occured while submiting order');
+    }
+  }
+
+  Future getCartItems(BuildContext context) async {
+    //print('yooo what is up??');
+    Provider.of<DetailScreenViewModel>(context, listen: false).clear();
+    String uid = await storage.read(key: 'uid');
+    try {
+      QuerySnapshot querySnapshot = await instance
+          .collection('orders')
+          .doc(uid)
+          .collection('allOrdersForOneUser')
+          .get();
+      Provider.of<CartScreenViewModel>(context, listen: false).orders =
+          querySnapshot.docs;
+      Provider.of<CartScreenViewModel>(context, listen: false)
+          .subtotalForEachOrder();
+      return querySnapshot.docs;
+    } catch (e) {
+      print('error from getCartItems');
+      print(e);
     }
   }
 }

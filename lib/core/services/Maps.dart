@@ -9,18 +9,20 @@ class Maps {
 
   Future getCurrentLocation(BuildContext context) async {
     var positionData = await GeolocatorPlatform.instance.getCurrentPosition();
+
     final cords =
         geoCo.Coordinates(positionData.latitude, positionData.longitude);
+
     Provider.of<GlobalViewModel>(context, listen: false).latitude =
         positionData.latitude;
+
     Provider.of<GlobalViewModel>(context, listen: false).longitude =
         positionData.longitude;
+
     var address =
         await geoCo.Geocoder.local.findAddressesFromCoordinates(cords);
 
     this.location = address.first.addressLine;
-    Provider.of<GlobalViewModel>(context, listen: false).location =
-        this.location.toString();
-    //return this.location.toString();
+    Provider.of<GlobalViewModel>(context, listen: false).setLocation(location);
   }
 }

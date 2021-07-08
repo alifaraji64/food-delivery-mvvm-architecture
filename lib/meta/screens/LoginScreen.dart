@@ -39,24 +39,12 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 200,
+                width: 220,
                 child: ElevatedButton(
                   onPressed: () async {
                     await Provider.of<LoginScreenViewModel>(context,
                             listen: false)
                         .logInViaGoogle();
-                    // try {
-                    //   await Provider.of<Authentication>(context, listen: false)
-                    //       .signInWithGoogle();
-                    //   Navigator.pushReplacement(
-                    //       context,
-                    //       PageTransition(
-                    //           child: HomeScreen(),
-                    //           type: PageTransitionType.fade));
-                    // } catch (e) {
-                    //   print('e');
-                    //   print(e);
-                    // }
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

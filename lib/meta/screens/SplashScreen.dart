@@ -2,11 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pizzato_mvvm/app/routes.dart';
 import 'package:pizzato_mvvm/core/viewmodels/SplashScreenViewModel.dart';
 import 'package:provider/provider.dart';
-import 'package:sailor/sailor.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
